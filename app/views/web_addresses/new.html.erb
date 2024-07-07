@@ -1,0 +1,7 @@
+<h1>WebAddresses#new</h1>
+
+<%= form_with(model: @web_address, local: true) do |form| %>
+  <%= form.label :original_url, "Enter the Target URL" %>
+  <%= form.text_field :original_url %>
+  <%= form.submit "Shorten" %>
+<% end %>
