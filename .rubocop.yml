@@ -1,0 +1,29 @@
+AllCops:
+  Exclude:
+    - '**/Gemfile'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'db/schema.rb'
+    - 'db/**/*'
+    - '/**/bin/*'
+    - '**/bin/bundle'
+    - 'config/**/*'
+    - 'spec/rails_helper.rb'
+  TargetRubyVersion: 3.0.1
+  SuggestExtensions: false
+  NewCops: enable
+Style/Documentation:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Lambda:
+  Enabled: false
+Metrics/LineLength:
+  Max: 100
+Metrics/ClassLength:
+  Max: 200
+require:
+  - rubocop-rails
+  - rubocop-rspec
