@@ -1,5 +1,5 @@
-class WebAddressQuery
-  def initialize(relation = WebAddress.all)
+class LinkQuery
+  def initialize(relation = Link.all)
     @relation = relation
   end
 

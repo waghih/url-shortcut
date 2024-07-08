@@ -1,4 +1,4 @@
-class WebAddressDecorator < SimpleDelegator
+class LinkDecorator < SimpleDelegator
   include Rails.application.routes.url_helpers
 
   def short_url_full

@@ -1,0 +1,29 @@
+<%= simple_form_for @link, html: { id: 'form' } do |f| %>
+  <div class="space-y-12">
+    <div class="border-b border-gray-900/10 pb-12">
+      <h2 class="text-2xl font-semibold leading-7 text-gray-900 pb-4">Create new link</h2>
+
+      <div class="col-span-full mt-4">
+        <%= f.input :original_url, 
+            label: 'Destination', 
+            label_html: { class: 'block text-sm font-medium leading-6 text-gray-900' }, 
+            input_html: { class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 #{'ring-red-500' if @link.errors[:original_url].any?}" },
+            error_html: { class: 'text-xs text-red-500' }
+        %>
+      </div>
+
+      <div class="col-span-full mt-4">
+        <%= f.input :title, 
+            label: 'Title', 
+            label_html: { class: 'block text-sm font-medium leading-6 text-gray-900' }, 
+            input_html: { class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 #{'ring-red-500' if @link.errors[:title].any?}" },
+            error_html: { class: 'text-xs text-red-500' }
+        %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <%= f.submit "Shorten", class: 'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' %>
+  </div>
+<% end %>
