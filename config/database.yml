@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: url_shortener_rails_production
-  username: url_shortener_rails
-  password: <%= ENV["URL_SHORTENER_RAILS_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  database: url_shortcut_rails_production
+  username: url_shortcut_rails
+  password: <%= ENV["URL_SHORTCUT_RAILS_DATABASE_PASSWORD"] %>
