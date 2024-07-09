@@ -12,6 +12,6 @@ class LinkQuery
   end
 
   def with_visits
-    @relation.includes(:visits)
+    LinkQuery.new(@relation.includes(:visits))
   end
 end

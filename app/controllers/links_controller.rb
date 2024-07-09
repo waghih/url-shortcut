@@ -1,7 +1,7 @@
 class LinksController < ApplicationController
   def show
     query = LinkQuery.new
-    @link = LinkDecorator.new(query.by_short_url(params[:id]))
+    @link = LinkDecorator.new(query.with_visits.by_short_url(params[:id]))
   end
 
   def new

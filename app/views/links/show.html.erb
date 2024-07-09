@@ -1,6 +1,18 @@
 <h1>WebAddresses#show</h1>
 
-<p>Short URL: <%= @link.short_url %></p>
+<p>Short URL: <%= @link.short_url_full %></p>
 <p>Original URL: <%= @link.original_url %></p>
 <p>Title: <%= @link.title %></p>
+
+<p>Visit count: <%= @link.visits.count %></p>
+<p>Visit locations</p>
+
+<ol>
+  <% @link.visits.each do |visit| %>
+    <li>
+      <strong>Location:</strong> <%= visit.geolocation %> - 
+      <strong>Timestamp:</strong> <%= visit.timestamp.strftime('%Y-%m-%d %H:%M:%S') %>
+    </li>
+  <% end %>
+</ol>
 
