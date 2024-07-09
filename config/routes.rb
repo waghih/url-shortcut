@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'home#index'
-  resources :links, only: [:new, :create, :show]
+  resources :links, only: [:new, :create, :show] do
+    collection do
+      get 'fetch_title'
+    end
+  end
   get '/:short_url', to: 'links#redirect'
 end

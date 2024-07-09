@@ -9,7 +9,7 @@ class LinksController < ApplicationController
   end
 
   def create
-    service = LinkShortenerService.new(url_params[:original_url])
+    service = LinkShortenerService.new(url_params[:original_url], url_params[:title])
     @link = service.build_short_url
 
     respond_to do |format|
@@ -32,6 +32,12 @@ class LinksController < ApplicationController
     else
       render plain: 'URL not found', status: :not_found
     end
+  end
+
+  def fetch_title
+    service = LinkShortenerService.new(params[:original_url])
+    title = service.fetch_title
+    render json: { title: title }
   end
 
   private
