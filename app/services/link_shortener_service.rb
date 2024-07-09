@@ -22,8 +22,8 @@ class LinkShortenerService
   def fetch_title(url)
     uri = URI.parse(url)
     response = Net::HTTP.get(uri)
-    response.match(/<title>(.*?)<\/title>/i)[1]
-  rescue
-    "No Title"
+    response.match(%r{<title>(.*?)</title>}i)[1]
+  rescue StandardError
+    'No Title'
   end
 end

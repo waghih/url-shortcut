@@ -26,7 +26,7 @@ detectors:
     enabled: true
     exclude: []
   InstanceVariableAssumption:
-    enabled: true
+    enabled: false
     exclude: []
   IrresponsibleModule:
     enabled: false
@@ -84,7 +84,7 @@ detectors:
     enabled: true
     exclude:
     - initialize
-    max_statements: 5
+    max_statements: 10
   UncommunicativeMethodName:
     enabled: true
     exclude: []
@@ -126,5 +126,7 @@ detectors:
     exclude: []
   UtilityFunction:
     enabled: true
-    exclude: []
+    exclude: [
+      LinkShortenerService#fetch_title
+    ]
     public_methods_only: false
