@@ -2,7 +2,6 @@ class LinksController < ApplicationController
   def show
     query = LinkQuery.new
     @link = LinkDecorator.new(query.by_short_url(params[:id]))
-    # binding.pry
   end
 
   def new
@@ -17,7 +16,7 @@ class LinksController < ApplicationController
       if @link.save
         format.html { redirect_to link_path(@link.short_url), notice: 'Link was successfully created.' }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace('link', partial: 'links/form', locals: { link: @link }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace('link_form', partial: 'links/form', locals: { link: @link }) }
         format.html { render :new, status: :unprocessable_entity }
       end
     end

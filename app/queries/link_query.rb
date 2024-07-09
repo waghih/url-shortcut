@@ -10,4 +10,8 @@ class LinkQuery
   def by_id(id)
     @relation.find(id)
   end
+
+  def with_visits
+    @relation.includes(:visits)
+  end
 end
