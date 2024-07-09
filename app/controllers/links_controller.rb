@@ -54,7 +54,7 @@ class LinksController < ApplicationController
   def record_visit(link)
     Visit.create(
       link_id: link.id,
-      geolocation: request.location.data.to_s,
+      geolocation: request.location.data.to_json,
       timestamp: Time.zone.now
     )
   end
