@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_08_112308) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_09_084718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,4 +22,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_112308) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "visits", force: :cascade do |t|
+    t.bigint "link_id", null: false
+    t.string "geolocation"
+    t.datetime "timestamp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link_id"], name: "index_visits_on_link_id"
+  end
+
+  add_foreign_key "visits", "links"
 end

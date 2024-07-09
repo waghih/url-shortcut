@@ -1,8 +1,7 @@
 <div class="overflow-hidden bg-white shadow sm:rounded-lg">
   <div class="px-4 py-5 sm:p-6">
-    <turbo-frame id="form">
+    <%= turbo_frame_tag "link" do %>
       <%= render 'form', link: @link %>
-    </turbo-frame>
-    <!-- Content goes here -->
+    <% end %>
   </div>
 </div>
