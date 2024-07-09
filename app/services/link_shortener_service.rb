@@ -27,7 +27,7 @@ class LinkShortenerService
   def fetch_title_from_url(url)
     response = HTTParty.get(url)
     document = Nokogiri::HTML(response.body)
-    title = document.title
+    document.title
   rescue StandardError
     'No Title'
   end

@@ -14,9 +14,14 @@ class LinksController < ApplicationController
 
     respond_to do |format|
       if @link.save
-        format.html { redirect_to link_path(@link.short_url), notice: 'Link was successfully created.' }
+        format.html do
+          redirect_to link_path(@link.short_url)
+        end
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace('link_form', partial: 'links/form', locals: { link: @link }) }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('link_form', partial: 'links/form',
+                                                                 locals: { link: @link })
+        end
         format.html { render :new, status: :unprocessable_entity }
       end
     end
@@ -50,7 +55,7 @@ class LinksController < ApplicationController
     Visit.create(
       link_id: link.id,
       geolocation: request.location.to_s,
-      timestamp: Time.now
+      timestamp: Time.zone.now
     )
   end
 end

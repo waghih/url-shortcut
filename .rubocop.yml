@@ -20,6 +20,10 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/Lambda:
   Enabled: false
+Metrics/AbcSize:
+  Max: 20
+Metrics/MethodLength:
+  Max: 15
 Metrics/LineLength:
   Max: 100
 Metrics/ClassLength:
