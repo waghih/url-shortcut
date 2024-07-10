@@ -8,6 +8,7 @@ class LinkShortenerService
     link = Link.new(original_url: @original_url)
     link.short_url = generate_unique_short_url
     link.title = @title.presence || fetch_title_from_url(@original_url)
+    link.icon_url = original_url_icon(@original_url)
     link
   end
 
@@ -30,5 +31,10 @@ class LinkShortenerService
     document.title
   rescue StandardError
     'No Title'
+  end
+
+  def original_url_icon(url)
+    uri = URI.parse(url)
+    "https://www.google.com/s2/favicons?domain=#{uri.host}&sz=32"
   end
 end
