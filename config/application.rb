@@ -27,5 +27,6 @@ module UrlShortenerRails
     # config.eager_load_paths << Rails.root.join("extras")
     config.generators.system_tests = nil
     config.generators.test_framework :rspec
+    config.time_zone = 'Kuala Lumpur'
   end
 end

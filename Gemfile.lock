@@ -93,11 +93,16 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    chartkick (5.0.7)
     code_analyzer (0.5.5)
       sexp_processor
     coderay (1.1.3)
     concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
+    countries (6.0.1)
+      unaccent (~> 0.3)
+    country_select (9.0.0)
+      countries (> 5.0, < 7.0)
     crass (1.0.6)
     csv (3.3.0)
     database_cleaner (2.0.2)
@@ -149,6 +154,8 @@ GEM
       base64 (>= 0.1.0)
       csv (>= 3.0.0)
     globalid (1.2.1)
+      activesupport (>= 6.1)
+    groupdate (6.4.0)
       activesupport (>= 6.1)
     httparty (0.22.0)
       csv
@@ -357,6 +364,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unaccent (0.4.0)
     unicode-display_width (2.5.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
@@ -380,10 +388,13 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   capybara
+  chartkick
+  country_select
   database_cleaner
   debug
   dotenv-rails
   geocoder
+  groupdate
   httparty
   importmap-rails
   jbuilder
