@@ -34,16 +34,16 @@
   <div class="px-4 py-5 sm:p-6">
     <%= line_chart @link.daily_click_count(30.days.ago),
       adapter: "chartjs",
-      xtitle: "Date", 
-      ytitle: "Number of Clicks", 
-      height: "500px", 
+      xtitle: "Date",
+      ytitle: "Number of Clicks",
+      height: "500px",
       colors: ["#3c8dbc"],
       min: 0,
-      library: { 
+      library: {
         title: { text: "Clicks in the Past 30 Days" },
         xAxis: { type: 'datetime', dateTimeLabelFormats: { day: '%e %b' } },
         yAxis: { title: { text: "Number of Clicks" } }
-      } 
+      }
     %>
   </div>
 </div>

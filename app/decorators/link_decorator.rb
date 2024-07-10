@@ -8,9 +8,9 @@ class LinkDecorator < SimpleDelegator
   end
 
   def daily_click_count(days_ago)
-    __getobj__.visits.where('timestamp >= ?', days_ago)
-                     .group_by_day(:timestamp)
-                     .count
+    __getobj__.visits.where(timestamp: days_ago..)
+              .group_by_day(:timestamp)
+              .count
   end
 
   def click_count_by_country

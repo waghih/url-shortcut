@@ -127,6 +127,7 @@ detectors:
   UtilityFunction:
     enabled: true
     exclude: [
-      LinkShortenerService
+      LinkShortenerService,
+      ApplicationHelper
     ]
     public_methods_only: false
