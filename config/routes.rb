@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :links, except: [:edit, :update] do
     collection do
       get 'fetch_title'
+      get 'search_stats'
+      get 'statistic'
     end
   end
   get '/:short_url', to: 'links#redirect'

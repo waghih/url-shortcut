@@ -64,6 +64,19 @@ class LinksController < ApplicationController
     render json: { title: title }
   end
 
+  def statistic; end
+
+  def search_stats
+    query = LinkQuery.new
+    @link = LinkDecorator.new(query.by_short_url(params[:short_url]))
+
+    if @link.present?
+      redirect_to link_path(@link.short_url)
+    else
+      redirect_to links_path
+    end
+  end
+
   private
 
   def url_params

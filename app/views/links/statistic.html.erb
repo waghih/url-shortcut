@@ -1,0 +1,21 @@
+
+<div class="flex items-center justify-center min-h-screen">
+  <div class="container mx-auto px-4">
+    <h1 class="text-4xl font-bold mb-4 text-center">Search link statistics</h1>
+
+    <%= form_with url: search_stats_links_path, method: :get, local: true, class: 'flex items-center' do %>
+      <div class="bg-white relative flex-1">
+        <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 py-2 px-4">
+          <span class="flex select-none items-center pl-3 text-gray-500 text-xl"><%= "#{Rails.configuration.application_host}/" %></span>
+          <%= text_field_tag :short_url, params[:short_url], class: 'block flex-1 border-0 bg-transparent py-1.5 pl-1 text-xl text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:leading-6', :required => true %>
+        </div>
+      </div>
+      <%= button_tag type: 'submit', class: 'p-4 ms-2 text-sm font-medium text-white bg-indigo-500 rounded-lg border border-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:indigo-500 dark:focus:ring-indigo-600' do %>
+        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+        <span class="sr-only">Search</span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
