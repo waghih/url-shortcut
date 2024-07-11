@@ -35,6 +35,17 @@ class LinksController < ApplicationController
     end
   end
 
+  def destroy
+    query = LinkQuery.new
+    @link = LinkDecorator.new(query.by_short_url(params[:id]))
+
+    @link.destroy
+    respond_to do |format|
+      format.html { redirect_to links_url }
+      format.json { head :no_content }
+    end
+  end
+
   def redirect
     query = LinkQuery.new
     @link = query.by_short_url(params[:short_url])
