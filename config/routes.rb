@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'home#index'
-  resources :links, only: [:new, :create, :show] do
+  resources :links, except: [:delete, :edit, :update] do
     collection do
       get 'fetch_title'
     end

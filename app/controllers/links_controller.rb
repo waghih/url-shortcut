@@ -1,4 +1,12 @@
 class LinksController < ApplicationController
+  def index
+    query = LinkQuery.new
+    @links = query.paginate(page: params[:page], per_page: 10)
+    @decorated_links = @links.map do |link|
+      LinkDecorator.new(link)
+    end
+  end
+
   def show
     query = LinkQuery.new
     @link = LinkDecorator.new(query.with_visits.by_short_url(params[:id]))
