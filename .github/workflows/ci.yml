@@ -21,17 +21,24 @@ jobs:
       - name: Install dependencies
         run: bundle install --path vendor/bundle
 
-      - name: Cache bundler dependencies
-        uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-bundler-
-
   qa:
     needs: setup
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: url_shortener_rails_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -53,10 +60,16 @@ jobs:
       - name: Install dependencies
         run: bundle install --path vendor/bundle
 
-      - name: Run QA command to analyze code quality and RSpec
-        run: bundle exec rake qa
+      - name: Wait for PostgreSQL to be ready
+        run: until pg_isready -h localhost; do sleep 1; done
+
+      - name: Setup test db and run QA command to analyze code quality and RSpec
         env:
           RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/test
+        run: |
+          bin/rails db:test:prepare
+          bin/rails qa
 
   deploy:
     needs: qa
