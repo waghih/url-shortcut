@@ -281,6 +281,8 @@ GEM
     rake (13.2.1)
     rdoc (6.7.0)
       psych (>= 4.0.0)
+    redis-client (0.22.2)
+      connection_pool
     reek (6.3.0)
       dry-schema (~> 1.13.0)
       parser (~> 3.3.0)
@@ -308,6 +310,11 @@ GEM
       rspec-expectations (~> 3.13)
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
+    rspec-sidekiq (5.0.0)
+      rspec-core (~> 3.0)
+      rspec-expectations (~> 3.0)
+      rspec-mocks (~> 3.0)
+      sidekiq (>= 5, < 8)
     rspec-support (3.13.1)
     rubocop (1.64.1)
       json (~> 2.3)
@@ -343,6 +350,12 @@ GEM
     sexp_processor (4.17.1)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
+    sidekiq (7.3.0)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -418,12 +431,14 @@ DEPENDENCIES
   reek (~> 6.3)
   rspec-mocks
   rspec-rails
+  rspec-sidekiq
   rubocop (~> 1.64, >= 1.64.1)
   rubocop-performance
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
   shoulda-matchers
+  sidekiq
   simple_form
   sprockets-rails
   stimulus-rails

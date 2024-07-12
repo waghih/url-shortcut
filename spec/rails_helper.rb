@@ -10,6 +10,7 @@ end
 require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'rspec-sidekiq'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 ActiveJob::Base.queue_adapter = :test
@@ -21,6 +22,13 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
 RSpec.configure do |config|
   config.fixture_paths = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
@@ -29,9 +37,8 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 end
 
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
-  end
+RSpec::Sidekiq.configure do |config|
+  config.clear_all_enqueued_jobs = true
+  config.enable_terminal_colours = true
+  config.warn_when_jobs_not_processed_by_sidekiq = true
 end

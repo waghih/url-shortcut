@@ -45,7 +45,7 @@ class LinksController < ApplicationController
     @link = @query.by_short_url(params[:short_url])
 
     if @link
-      record_visit(@link)
+      RecordVisitWorker.perform_async(@link.id, request.location.data)
       redirect_to @link.original_url, allow_other_host: true
     else
       render plain: 'URL not found', status: :not_found
@@ -78,13 +78,5 @@ class LinksController < ApplicationController
 
   def url_params
     params.require(:link).permit(:original_url, :title)
-  end
-
-  def record_visit(link)
-    Visit.create(
-      link_id: link.id,
-      geolocation: request.location.data,
-      timestamp: Time.zone.now
-    )
   end
 end

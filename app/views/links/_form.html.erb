@@ -14,7 +14,7 @@
 
       <div class="col-span-full mt-4">
         <%= f.input :title,
-            label: 'Title',
+            label: 'Title (Optional)',
             label_html: { class: 'block text-sm font-medium leading-6 text-gray-900' },
             input_html: { class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 #{'ring-red-500' if @link.errors[:title].any?}" },
             error_html: { class: 'text-xs text-red-500' }
