@@ -8,12 +8,35 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.1
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install --path vendor/bundle
+
       - name: Cache bundler dependencies
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bundler-
+
+  qa:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Restore bundler cache
         uses: actions/cache@v2
         with:
           path: vendor/bundle
@@ -30,22 +53,6 @@ jobs:
       - name: Install dependencies
         run: bundle install --path vendor/bundle
 
-  qa:
-    needs: setup
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Restore bundler cache
-        uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-bundler-
-
       - name: Run QA command to analyze code quality and RSpec
         run: bundle exec rake qa
         env:
@@ -54,7 +61,6 @@ jobs:
   deploy:
     needs: qa
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -66,6 +72,15 @@ jobs:
           key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-bundler-
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.1
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install --path vendor/bundle
 
       - name: Deploy to Render
         env:
