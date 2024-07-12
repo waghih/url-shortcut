@@ -1,15 +1,13 @@
 class LinksController < ApplicationController
+  before_action :set_link_query, only: %i[index show destroy redirect search_stats]
+
   def index
-    query = LinkQuery.new
-    @links = query.paginate(page: params[:page], per_page: 10)
-    @decorated_links = @links.map do |link|
-      LinkDecorator.new(link)
-    end
+    @links = @query.paginate(page: params[:page], per_page: 10)
+    @decorated_links = @links.map { |link| LinkDecorator.new(link) }
   end
 
   def show
-    query = LinkQuery.new
-    @link = LinkDecorator.new(query.with_visits.by_short_url(params[:id]))
+    @link = LinkDecorator.new(@query.with_visits.by_short_url(params[:id]))
   end
 
   def new
@@ -22,9 +20,7 @@ class LinksController < ApplicationController
 
     respond_to do |format|
       if @link.save
-        format.html do
-          redirect_to link_path(@link.short_url)
-        end
+        format.html { redirect_to link_path(@link.short_url) }
       else
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace('link_form', partial: 'links/form',
@@ -36,8 +32,7 @@ class LinksController < ApplicationController
   end
 
   def destroy
-    query = LinkQuery.new
-    @link = LinkDecorator.new(query.by_short_url(params[:id]))
+    @link = LinkDecorator.new(@query.by_short_url(params[:id]))
 
     @link.destroy
     respond_to do |format|
@@ -47,8 +42,7 @@ class LinksController < ApplicationController
   end
 
   def redirect
-    query = LinkQuery.new
-    @link = query.by_short_url(params[:short_url])
+    @link = @query.by_short_url(params[:short_url])
 
     if @link
       record_visit(@link)
@@ -67,17 +61,20 @@ class LinksController < ApplicationController
   def statistic; end
 
   def search_stats
-    query = LinkQuery.new
-    @link = LinkDecorator.new(query.by_short_url(params[:short_url]))
+    @link = LinkDecorator.new(@query.by_short_url(params[:short_url]))
 
     if @link.present?
       redirect_to link_path(@link.short_url)
     else
-      redirect_to links_path
+      render file: Rails.public_path.join('404.html').to_s, status: :not_found
     end
   end
 
   private
+
+  def set_link_query
+    @query = LinkQuery.new
+  end
 
   def url_params
     params.require(:link).permit(:original_url, :title)
