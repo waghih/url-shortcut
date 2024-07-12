@@ -6,17 +6,44 @@ on:
       - main
 
 jobs:
-  deploy:
+  checkout:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+  setup:
+    needs: checkout
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.1 # specify your Ruby version
+          ruby-version: 3.0.1
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+  qa:
+    needs: [checkout, setup]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run QA command to analyze code quality and RSpec
+        run: bundle exec rake qa
+
+  deploy:
+    needs: [checkout, setup, qa]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.1
           bundler-cache: true
 
       - name: Install dependencies
