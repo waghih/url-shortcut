@@ -4,6 +4,8 @@
 
 This project is a URL shortener application built with Ruby on Rails. It allows users to shorten URLs, track click statistics, and view geolocation data. The application uses PostgreSQL for data storage, Sidekiq for background job, and Redis for sidekiq job processing.
 
+DEMO: https://url-shortcut.onrender.com
+
 ## Technology Stack
 
 - **Ruby**: 3.0.1

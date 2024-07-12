@@ -2,8 +2,9 @@ name: URL Shortcut CI/CD
 
 on:
   push:
-    paths-ignore:
-      - 'README.md'
+    paths:
+      - '**'
+      - '!README.md'
     branches:
       - main
 
