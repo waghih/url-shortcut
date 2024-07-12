@@ -94,6 +94,7 @@ group :test do
   gem 'rspec-mocks'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
 end
 
 gem "tailwindcss-rails", "~> 2.6"
