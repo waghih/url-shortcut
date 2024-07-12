@@ -12,7 +12,7 @@ class LinkQuery
   end
 
   def with_visits
-    LinkQuery.new(@relation.includes(:visits))
+    LinkQuery.new(@relation.includes(:visits).references(:visits).order('visits.timestamp DESC'))
   end
 
   def paginate(page: 1, per_page: 10)
